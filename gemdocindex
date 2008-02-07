@@ -11,6 +11,7 @@
 
 require 'rubygems'
 require 'rubygems/doc_manager'
+require 'rubygems/rubygems_version'
 
 gem_name_to_gem_list_map = {}
 Gem::SourceIndex.from_installed_gems.each do |full_gem_name, gem|
@@ -18,6 +19,15 @@ Gem::SourceIndex.from_installed_gems.each do |full_gem_name, gem|
     (gem_name_to_gem_list_map[gem.name] ||= []) << gem
   end
 end
+
+# Add a gem spec for rubygems itself
+rubygems_gem = Gem::Specification.new do |spec|
+  spec.name = 'rubygems'
+  spec.version = Gem::RubyGemsVersion
+  spec.summary = "The rubygems system"
+end
+def rubygems_gem.installation_path() Gem::default_path end
+gem_name_to_gem_list_map['rubygems'] = [rubygems_gem]
 
 
 puts <<-end_html
