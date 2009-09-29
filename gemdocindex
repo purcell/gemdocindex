@@ -11,7 +11,7 @@
 
 require 'rubygems'
 require 'rubygems/doc_manager'
-require 'rubygems/rubygems_version'
+require 'rubygems/version'
 
 gem_name_to_gem_list_map = {}
 Gem::SourceIndex.from_installed_gems.each do |full_gem_name, gem|
